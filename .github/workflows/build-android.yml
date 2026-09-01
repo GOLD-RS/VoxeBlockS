@@ -34,5 +34,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: VoxeBlockS-Android-debug
-          path: ${{ steps.export.outputs.build_directory }}/VoxeBlockS.apk
+          path: build/Android/VoxeBlockS.apk
           if-no-files-found: error
