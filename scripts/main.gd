@@ -78,9 +78,11 @@ func _break_target() -> void:
     if hit.is_empty():
         return
     var collider = hit.get("collider")
-    if collider == null or not collider.has_meta("block_coord"):
+    if collider == null or not collider.has_meta("voxel_chunk"):
         return
-    var coord: Vector3i = collider.get_meta("block_coord")
+    var hit_position: Vector3 = hit.get("position", Vector3.ZERO)
+    var normal: Vector3 = hit.get("normal", Vector3.UP)
+    var coord := Vector3i(floori(hit_position.x - normal.x * 0.01), floori(hit_position.y - normal.y * 0.01), floori(hit_position.z - normal.z * 0.01))
     if world.remove_block(coord):
         hud.show_message("Bloco removido  •  G coloca um bloco")
 
@@ -89,10 +91,11 @@ func _place_target() -> void:
     if hit.is_empty():
         return
     var collider = hit.get("collider")
-    if collider == null or not collider.has_meta("block_coord"):
+    if collider == null or not collider.has_meta("voxel_chunk"):
         return
-    var base: Vector3i = collider.get_meta("block_coord")
+    var hit_position: Vector3 = hit.get("position", Vector3.ZERO)
     var normal: Vector3 = hit.get("normal", Vector3.UP)
+    var base := Vector3i(floori(hit_position.x - normal.x * 0.01), floori(hit_position.y - normal.y * 0.01), floori(hit_position.z - normal.z * 0.01))
     var offset := Vector3i(roundi(normal.x), roundi(normal.y), roundi(normal.z))
     var target := base + offset
     if world.add_block(target, "grass"):
