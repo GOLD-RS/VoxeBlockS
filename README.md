@@ -5,6 +5,7 @@ Sandbox 3D de sobrevivência e criatividade em um mundo de blocos, com visual ca
 ## Estado atual — protótipo 0.1
 
 - Mundo procedural local com terreno, grama, terra, pedra, árvores e folhas.
+- Renderização por chunks com faces internas removidas e colisão por chunk, reduzindo draw calls.
 - Movimento em primeira pessoa e câmera em terceira pessoa.
 - Controles de teclado e controles touch para Android.
 - Quebrar e colocar blocos.
@@ -21,7 +22,7 @@ Cada push na branch `main` executa o workflow `.github/workflows/build-android.y
 
 ## Próximos marcos
 
-1. Chunks e mesh combinada para escalar o mundo sem criar um nó por bloco.
+1. Streaming de chunks ao redor do jogador para transformar o mundo local em mundo infinito.
 2. Inventário, crafting e persistência do mundo.
 3. Criaturas, combate, fome/vida e progressão.
 4. Abstração de sessão multiplayer sem quebrar o single-player.
