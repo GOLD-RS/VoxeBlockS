@@ -124,6 +124,8 @@ func _rebuild_chunk(key: Vector2i) -> void:
 	var mesh := ArrayMesh.new()
 	for kind in by_kind:
 		var data: Dictionary = by_kind[kind]
+		if data["vertices"].is_empty():
+			continue
 		var arrays := []
 		arrays.resize(Mesh.ARRAY_MAX)
 		arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(data["vertices"])
@@ -163,7 +165,7 @@ func _append_face(data: Dictionary, collision_faces: Array[Vector3], coord: Vect
 	for corner in corners:
 		vertices.append(origin + corner)
 		normals.append(normal)
-	uvs.append(Vector2(corner.x + corner.z, corner.y))
+		uvs.append(Vector2(corner.x + corner.z, corner.y))
 	indices.append(start)
 	indices.append(start + 1)
 	indices.append(start + 2)
