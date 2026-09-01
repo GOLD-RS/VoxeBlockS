@@ -45,6 +45,27 @@ jobs:
           export_debug: true
           cache: true
 
+      - name: Validate APK
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          apk = Path("build/Android/VoxeBlockS.apk")
+          if not apk.is_file() or apk.stat().st_size < 1024 * 1024:
+              raise SystemExit("APK ausente ou pequeno demais")
+          with ZipFile(apk) as package:
+              if package.testzip() is not None:
+                  raise SystemExit("APK corrompido")
+              names = set(package.namelist())
+              required = {"AndroidManifest.xml", "lib/arm64-v8a/libgodot_android.so"}
+              missing = required - names
+              if missing:
+                  raise SystemExit(f"Arquivos essenciais ausentes: {missing}")
+              if not any(name.endswith(".RSA") for name in names if name.startswith("META-INF/")):
+                  raise SystemExit("APK sem assinatura RSA")
+          print(f"APK válido: {apk.stat().st_size} bytes")
+          PY
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
