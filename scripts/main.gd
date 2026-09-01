@@ -1,6 +1,5 @@
 extends Node3D
 
-const BlockTypesScript = preload("res://scripts/block_types.gd")
 const InputActionsScript = preload("res://scripts/input_actions.gd")
 const GameModeScript = preload("res://scripts/game_mode.gd")
 const WorldScript = preload("res://scripts/world_manager.gd")
@@ -21,6 +20,9 @@ func _ready() -> void:
 
 	world = WorldScript.new()
 	world.name = "WorldManager"
+	world.render_distance = int(ProjectSettings.get_setting("voxel/render_distance", 2))
+	world.load_distance = int(ProjectSettings.get_setting("voxel/load_distance", 2))
+	world.unload_distance = int(ProjectSettings.get_setting("voxel/unload_distance", 3))
 	add_child(world)
 
 	player = PlayerScript.new()
@@ -30,7 +32,6 @@ func _ready() -> void:
 	player.global_position = world.get_spawn_position()
 
 	game_mode = GameModeScript.new()
-	player.set_meta("game_mode", game_mode)
 
 	interaction = InteractionScript.new()
 	interaction.name = "WorldInteraction"
