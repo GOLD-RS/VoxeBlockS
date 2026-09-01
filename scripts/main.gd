@@ -4,9 +4,9 @@ const WorldScript = preload("res://scripts/world.gd")
 const PlayerScript = preload("res://scripts/player.gd")
 const HUDScript = preload("res://scripts/hud.gd")
 
-var world: VoxeWorld
-var player: VoxePlayer
-var hud: VoxeHUD
+var world
+var player
+var hud
 var creative_mode := false
 var last_f_pressed := false
 var last_g_pressed := false
@@ -66,8 +66,8 @@ func _setup_environment() -> void:
     add_child(sun)
 
 func _raycast_block() -> Dictionary:
-    var origin := player.get_view_origin()
-    var target := origin + player.get_view_direction() * 7.0
+    var origin: Vector3 = player.get_view_origin()
+    var target: Vector3 = origin + player.get_view_direction() * 7.0
     var query := PhysicsRayQueryParameters3D.create(origin, target)
     query.collision_mask = 1
     query.exclude = [player.get_rid()]
