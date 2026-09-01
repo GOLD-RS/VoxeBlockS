@@ -1,10 +1,10 @@
 ; VoxeBlockS - project settings
-; Generated with Godot 4.7.2
+; Godot 4.7.2 stable
 config_version=5
 
 [application]
 config/name="VoxeBlockS"
-config/description="Um sandbox de sobrevivência e criatividade em um mundo de blocos"
+config/description="Sandbox 3D de sobrevivência e criatividade em um mundo voxel"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -14,7 +14,12 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
+window/size/resizable=true
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[physics]
+3d/default_gravity=18.0
 
 [rendering]
 renderer/rendering_method="gl_compatibility"
@@ -22,5 +27,8 @@ renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.42, 0.68, 0.9, 1)
 textures/vram_compression/import_etc2_astc=true
 
-[physics]
-3d/default_gravity=18.0
+[voxel]
+world_seed=20260831
+render_distance=2
+load_distance=2
+unload_distance=3
